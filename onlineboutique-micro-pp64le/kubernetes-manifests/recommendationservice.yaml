@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recommendationservice
+spec:
+  selector:
+    matchLabels:
+      app: recommendationservice
+  template:
+    metadata:
+      labels:
+        app: recommendationservice
+    spec:
+      serviceAccountName: go-micro
+      terminationGracePeriodSeconds: 5
+      containers:
+        - name: server
+          image: quay.io/acancell-redhat-talks/ibm_txc_24_rome/onlineboutique-micro-ppc64le/recommendationservice:latest
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            periodSeconds: 5
+            exec:
+              command: ["/bin/grpc_health_probe", "-addr=:8080"]
+          livenessProbe:
+            periodSeconds: 5
+            exec:
+              command: ["/bin/grpc_health_probe", "-addr=:8080"]
+          env:
+            - name: PORT
+              value: "8080"
+            - name: MICRO_REGISTRY
+              value: "kubernetes"
+            - name: PRODUCTCATALOGSERVICE
+              value: "productcatalogservice"
+            - name: TRACING_ENABLE
+              value: "false"
+            - name: TRACING_JAEGER_URL
+              value: "http://jaeger-collector.default.svc.cluster.local:14268/api/traces"
+          # resources:
+          #   requests:
+          #     cpu: 100m
+          #     memory: 64Mi
+          #   limits:
+          #     cpu: 200m
+          #     memory: 128Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: recommendationservice
+spec:
+  type: ClusterIP
+  selector:
+    app: recommendationservice
+  ports:
+    - name: grpc
+      port: 8080
+      targetPort: 8080
