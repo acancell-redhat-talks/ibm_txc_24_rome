@@ -27,7 +27,8 @@ spec:
                 - all
             privileged: false
             readOnlyRootFilesystem: true
-          image: quay.io/acancell-redhat-talks/ibm_txc_24_rome/onlineboutique-micro-ppc64le/cartservice:latest
+          # image: quay.io/acancell-redhat-talks/ibm_txc_24_rome/onlineboutique-micro-ppc64le/cartservice:latest
+          image: quay.io/acancell-redhat-talks/ibm_txc_24_rome/onlineboutique-micro-ppc64le/cartservice-persist:latest
           ports:
             - containerPort: 7070
           env:
