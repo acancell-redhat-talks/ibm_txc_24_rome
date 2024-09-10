@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-pod
+  labels:
+    app: py-http
+spec:
+  containers:
+    - name: demo-container
+      image: quay.io/acancell-redhat-talks/ibm_txc_24_rome/demo-container:latest
+      ports:
+        - containerPort: 8000
