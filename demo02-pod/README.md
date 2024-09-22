@@ -23,6 +23,7 @@ oc new-project demo-project
 
 ```
 cd demo02-pod
+cat pod.yaml
 oc apply -f pod.yaml
 ```
 
@@ -41,14 +42,11 @@ oc get pod demo-pod -o yaml
 oc delete pod demo-pod
 ```
 
-### Recreate the Pod
+### Recreate the Pod and expose it to the Internet
 
 ```
 oc apply -f pod.yaml
 ```
-
-### Expose the Pod to the Internet
-
 ```
 cat service.yaml
 oc apply -f service.yaml
