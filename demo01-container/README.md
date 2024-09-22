@@ -74,3 +74,7 @@ podman image ls
 podman tag localhost/ibm_txc_24_rome/demo-container:latest quay.io/acancell-redhat-talks/ibm_txc_24_rome/demo-container:latest
 podman push quay.io/acancell-redhat-talks/ibm_txc_24_rome/quay.io/acancell-redhat-talks/ibm_txc_24_rome/demo-container:latest
 ```
+
+### Verify the image was pushed to the remote registry
+
+Location: https://quay.io/organization/acancell-redhat-talks
